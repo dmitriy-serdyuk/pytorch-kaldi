@@ -78,6 +78,12 @@ class NormReLU(nn.Module):
 #        return grad_input
 
 
+activation_map = {"relu": nn.ReLU,
+                  "tanh": nn.Tanh,
+                  "sigmoid": nn.Sigmoid,
+                  "normrelu": NormReLU}
+
+
 class MLP(nn.Module):
     def __init__(self, options):
         super(MLP, self).__init__()
@@ -94,7 +100,7 @@ class MLP(nn.Module):
         self.use_cuda = bool(int(options.use_cuda))
         self.resnet = bool(int(options.resnet))
         self.skip_conn = bool(int(options.skip_conn))
-        self.act = options.act
+        self.act = activation_map[options.act]()
         self.cost = options.cost
 
         # List initialization
@@ -107,18 +113,6 @@ class MLP(nn.Module):
         if self.use_laynorm:
             self.ln = nn.ModuleList([])
 
-        if self.act == "relu":
-            self.act = nn.ReLU()
-        elif self.act == "tanh":
-            self.act = nn.Tanh()
-        elif self.act == "sigmoid":
-            self.act = nn.Sigmoid()
-        elif self.act == "normrelu":
-            self.act = NormReLU()
-        else:
-            raise ValueError
-
-        #
         curr_dim = self.input_dim
 
         for i in range(self.N_hid):
@@ -227,10 +221,10 @@ class GRU(nn.Module):
         self.use_cuda = bool(int(options.use_cuda))
         self.bidir = bool(int(options.bidir))
         self.skip_conn = bool(int(options.skip_conn))
-        self.act = options.act
+        self.act = activation_map[options.act]()
         self.resgate = bool(int(options.resgate))
         self.minimal_gru = bool(int(options.minimal_gru))
-        self.act_gate = options.act_gate
+        self.act_gate = activation_map[options.act_gate]()
         self.cost = options.cost
         self.twin_reg = bool(int(options.twin_reg))
         self.twin_w = float(options.twin_w)
@@ -255,28 +249,6 @@ class GRU(nn.Module):
 
         if self.use_laynorm:
             self.ln = nn.ModuleList([])
-
-        if self.act == "relu":
-            self.act = nn.ReLU()
-        elif self.act == "tanh":
-            self.act = nn.Tanh()
-        elif self.act == "sigmoid":
-            self.act = nn.Sigmoid()
-        elif self.act == "normrelu":
-            self.act = NormReLU()
-        else:
-            raise ValueError
-
-        if self.act_gate == "relu":
-            self.act_gate = nn.ReLU()
-        elif self.act_gate == "tanh":
-            self.act_gate = nn.Tanh()
-        elif self.act_gate == "sigmoid":
-            self.act_gate = nn.Sigmoid()
-        elif self.act_gate == "normrelu":
-            self.act_gate = NormReLU()
-        else:
-            raise ValueError
 
         curr_dim = self.input_dim
 
@@ -481,8 +453,8 @@ class RNN(nn.Module):
         self.use_cuda = bool(int(options.use_cuda))
         self.bidir = bool(int(options.bidir))
         self.skip_conn = bool(int(options.skip_conn))
-        self.act = options.act
-        self.act_gate = options.act_gate
+        self.act = activation_map[options.act]()
+        self.act_gate = activation_map[options.act_gate]()
         self.cost = options.cost
         self.twin_reg = bool(int(options.twin_reg))
         self.twin_w = float(options.twin_w)
@@ -501,28 +473,6 @@ class RNN(nn.Module):
 
         if self.use_laynorm:
             self.ln = nn.ModuleList([])
-
-        if self.act == "relu":
-            self.act = nn.ReLU()
-        elif self.act == "tanh":
-            self.act = nn.Tanh()
-        elif self.act == "sigmoid":
-            self.act = nn.Sigmoid()
-        elif self.act == "normrelu":
-            self.act = NormReLU()
-        else:
-            raise ValueError
-
-        if self.act_gate == "relu":
-            self.act_gate = nn.ReLU()
-        elif self.act_gate == "tanh":
-            self.act_gate = nn.Tanh()
-        elif self.act_gate == "sigmoid":
-            self.act_gate = nn.Sigmoid()
-        elif self.act_gate == "normrelu":
-            self.act_gate = NormReLU()
-        else:
-            raise ValueError
 
         curr_dim = self.input_dim
 
@@ -693,8 +643,8 @@ class LSTM(nn.Module):
         self.use_cuda = bool(int(options.use_cuda))
         self.bidir = bool(int(options.bidir))
         self.skip_conn = bool(int(options.skip_conn))
-        self.act = options.act
-        self.act_gate = options.act_gate
+        self.act = activation_map[options.act]()
+        self.act_gate = activation_map[options.act_gate]()
         self.cost = options.cost
         self.twin_reg = bool(int(options.twin_reg))
         self.twin_w = float(options.twin_w)
@@ -721,28 +671,6 @@ class LSTM(nn.Module):
 
         if self.use_laynorm:
             self.ln = nn.ModuleList([])
-
-        if self.act == "relu":
-            self.act = nn.ReLU()
-        elif self.act == "tanh":
-            self.act = nn.Tanh()
-        elif self.act == "sigmoid":
-            self.act = nn.Sigmoid()
-        elif self.act == "normrelu":
-            self.act = NormReLU()
-        else:
-            raise ValueError
-
-        if self.act_gate == "relu":
-            self.act_gate = nn.ReLU()
-        elif self.act_gate == "tanh":
-            self.act_gate = nn.Tanh()
-        elif self.act_gate == "sigmoid":
-            self.act_gate = nn.Sigmoid()
-        elif self.act_gate == "normrelu":
-            self.act_gate = NormReLU()
-        else:
-            raise ValueError
 
         curr_dim = self.input_dim
 
