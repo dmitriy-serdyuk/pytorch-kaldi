@@ -3,7 +3,6 @@ import torch
 from torch.autograd import Variable
 import torch.nn.functional as F
 import torch.nn as nn
-import sys
 
 
 def flip(x, dim):
@@ -16,8 +15,8 @@ def flip(x, dim):
     return x.view(xsize)
 
 
-
-   
+#
+#
 class CNN_feaproc(nn.Module):
     
     def __init__(self):
@@ -47,6 +46,7 @@ class LayerNorm(nn.Module):
         mean = x.mean(-1, keepdim=True)
         std = x.std(-1, keepdim=True)
         return self.gamma * (x - mean) / (std + self.eps) + self.beta
+
     
 class normrelu(nn.Module):
 
@@ -120,7 +120,7 @@ class MLP(nn.Module):
         if self.act=="normrelu":
             self.act=normrelu()
             
-        
+        #
         curr_dim=self.input_dim
         
         for i in range(self.N_hid):
@@ -156,7 +156,6 @@ class MLP(nn.Module):
         if self.cost=="mse":
          self.criterion = torch.nn.MSELoss()
                
-    
     def forward(self, x,lab,test_flag):
                         
       if self.use_cuda:
@@ -236,7 +235,7 @@ class GRU(nn.Module):
         self.twin_w=float(options.twin_w)
         self.cnn_pre=bool(int(options.cnn_pre))
         
-        
+        #
         # List initialization
         self.wzx  = nn.ModuleList([]) # Update Gate
         self.whx  = nn.ModuleList([]) # Candidate (feed-forward)
@@ -333,7 +332,6 @@ class GRU(nn.Module):
         if self.cost=="mse":
          self.criterion = torch.nn.MSELoss()
                
-    
     def forward(self, x,lab,test_flag):
     
       # initial state
@@ -450,7 +448,7 @@ class GRU(nn.Module):
       # computing output (done in parallel)
       out=self.fco(h)
 
-        
+      #
       # computing loss
       if self.cost=="nll":
         pout=F.log_softmax(out,dim=2)
@@ -467,10 +465,8 @@ class GRU(nn.Module):
           loss=loss+self.twin_w*reg
         
       return [loss,err,pout]
-  
-    
-    
-    
+
+
 class RNN(nn.Module):
     def __init__(self, options):
         super(RNN, self).__init__()
@@ -665,13 +661,12 @@ class RNN(nn.Module):
          h=torch.cat([h_f,h_b],2)
         
         if self.twin_reg:
-          if not(self.bidir):
+          if not self.bidir:
             h_f=h[:,0:int(x.shape[1]/2)]
             h_b=flip(h[:,int(x.shape[1]/2):x.shape[1]].contiguous(),0)
             h=h_f
           reg=reg+torch.mean((h_f - h_b)**2)
           
-
         # setup x for the next hidden layer
         x=h
 
@@ -925,7 +920,7 @@ class LSTM(nn.Module):
          h=torch.cat([h_f,h_b],2)
          
         if self.twin_reg:
-          if not(self.bidir):
+          if not self.bidir:
             h_f=h[:,0:int(x.shape[1]/2)]
             h_b=flip(h[:,int(x.shape[1]/2):x.shape[1]].contiguous(),0)
             h=h_f
@@ -954,6 +949,3 @@ class LSTM(nn.Module):
           loss=loss+self.twin_w*reg
         
       return [loss,err,pout]
-  
-    
-   

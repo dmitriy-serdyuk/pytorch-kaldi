@@ -12,10 +12,10 @@
 # It exploits an interface to  kaldi for feature computation and decoding. 
 # How to run it:
 # python run_nn.py --cfg TIMIT_MLP.cfg
-
-
-
-
+#
+#
+#
+#
 
 import kaldi_io
 import numpy as np
@@ -23,15 +23,14 @@ import torch
 from torch.autograd import Variable
 import timeit
 import torch.optim as optim
-import os
 from data_io import load_chunk,load_counts,read_conf
 import random
 import torch.nn as nn
-import sys
 
 
-  
-    
+#
+#
+#
 # Reading options in cfg file
 options=read_conf()
 
@@ -160,7 +159,7 @@ loss_sum=0
 err_sum=0
 
 
-  
+#
 for i in range(N_batches):
    
    if do_training:
@@ -240,7 +239,7 @@ err_tot=err_sum/N_batches
 end_time=timeit.default_timer() 
 
  
- # check point saving
+# check point saving
 if do_training:
  checkpoint={'model_par': net.state_dict(),
             'optimizer_par' : optimizer.state_dict()}
@@ -261,15 +260,3 @@ inf.close()
 
 if do_forward:
     post_file.close()
-
- 
-
- 
-
-
-  
-  
-  
-  
-  
- 
