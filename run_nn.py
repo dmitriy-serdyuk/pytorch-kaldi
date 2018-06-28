@@ -22,8 +22,8 @@ import random
 import torch.nn as nn
 from torch.autograd import Variable
 
-import neural_nets
-from data_io import load_chunk, load_counts, read_conf
+from pytorch_kaldi import neural_nets
+from pytorch_kaldi.data_io import load_chunk, load_counts, read_conf
 
 
 def main():
