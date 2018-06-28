@@ -16,12 +16,14 @@
 import kaldi_io
 import numpy as np
 import torch
-from torch.autograd import Variable
 import timeit
 import torch.optim as optim
-from data_io import load_chunk, load_counts, read_conf
 import random
 import torch.nn as nn
+from torch.autograd import Variable
+
+import neural_nets
+from data_io import load_chunk, load_counts, read_conf
 
 
 # Reading options in cfg file
@@ -58,20 +60,8 @@ lr = float(options.lr)
 save_gpumem = int(options.save_gpumem)
 opt = options.optimizer
 
-if NN_type == 'RNN':
-    from neural_nets import RNN as ANN
-    recurrent = True
-elif NN_type == 'LSTM':
-    from neural_nets import LSTM as ANN
-    recurrent = True
-elif NN_type == 'GRU':
-    from neural_nets import GRU as ANN
-    recurrent = True
-elif NN_type == 'MLP':
-    from neural_nets import MLP as ANN
-    recurrent = False
-else:
-    raise ValueError
+recurrent = {"RNN": True, "LSTM": True, "GRU": True, "MLP": False}[NN_type]
+ANN = getattr(neural_nets, NN_type)
 
 start_time = timeit.default_timer()
 
