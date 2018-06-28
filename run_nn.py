@@ -86,9 +86,9 @@ random.seed(seed)
 if rnn or do_eval or do_forward:
     seed = -1
 
-[data_name, data_set, data_end_index] = load_chunk(fea_scp, fea_opts, lab_folder, lab_opts, left, right, seed)
+data_name, data_set, data_end_index = load_chunk(fea_scp, fea_opts, lab_folder, lab_opts, left, right, seed)
 
-if not (save_gpumem):
+if not save_gpumem:
     data_set = torch.from_numpy(data_set).float().cuda()
 else:
     data_set = torch.from_numpy(data_set).float()
@@ -187,7 +187,7 @@ for i in range(N_batches):
             lab = lab.view(lab.shape[0], 1)
         beg_snt = data_end_index[i]
 
-    [loss, err, pout] = net(inp, lab, test_flag)
+    loss, err, pout = net(inp, lab, test_flag)
 
     if multi_gpu:
         loss = loss.mean()
@@ -235,10 +235,10 @@ info_file = out_file.replace(".pkl", ".info")
 
 # Printing info file
 with open(info_file, "w") as inf:
-    inf.write("model_in=%s\n" % (pt_file))
-    inf.write("fea_in=%s\n" % (fea_scp))
-    inf.write("loss=%f\n" % (loss_tot))
-    inf.write("err=%f\n" % (err_tot))
+    inf.write("model_in=%s\n" % pt_file)
+    inf.write("fea_in=%s\n" % fea_scp)
+    inf.write("loss=%f\n" % loss_tot)
+    inf.write("err=%f\n" % err_tot)
     inf.write("elapsed_time=%f\n" % (end_time - start_time))
 
 inf.close()

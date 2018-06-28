@@ -32,7 +32,7 @@ def load_dataset(fea_scp, fea_opts, lab_folder, lab_opts, left, right):
 
     end_index[-1] = end_index[-1] - right
 
-    return [snt_name, fea_conc, lab_conc, end_index]
+    return snt_name, fea_conc, lab_conc, end_index
 
 
 def context_window(fea, left, right):
@@ -51,7 +51,7 @@ def context_window(fea, left, right):
 
 def load_chunk(fea_scp, fea_opts, lab_folder, lab_opts, left, right, shuffle_seed):
     # open the file
-    [data_name, data_set, data_lab, end_index] = load_dataset(fea_scp, fea_opts, lab_folder, lab_opts, left, right)
+    data_name, data_set, data_lab, end_index = load_dataset(fea_scp, fea_opts, lab_folder, lab_opts, left, right)
 
     # Context window
     data_set = context_window(data_set, left, right)
@@ -73,7 +73,7 @@ def load_chunk(fea_scp, fea_opts, lab_folder, lab_opts, left, right, shuffle_see
         np.random.seed(shuffle_seed)
         np.random.shuffle(data_set)
 
-    return [data_name, data_set, end_index]
+    return data_name, data_set, end_index
 
 
 def load_counts(class_counts_file):
@@ -176,7 +176,7 @@ def read_opts():
 def read_conf():
     parser = OptionParser()
     parser.add_option("--cfg")  # Mandatory
-    (options, args) = parser.parse_args()
+    options, args = parser.parse_args()
 
     cfg_file = options.cfg
     Config = ConfigParser()

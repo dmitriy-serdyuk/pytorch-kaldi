@@ -207,7 +207,7 @@ class MLP(nn.Module):
             pout = out
             err = Variable(torch.FloatTensor([0]))
 
-        return [loss, err, pout]
+        return loss, err, pout
 
 
 class GRU(nn.Module):
@@ -433,7 +433,7 @@ class GRU(nn.Module):
                 h = torch.cat([h_f, h_b], 2)
 
             if self.twin_reg:
-                if not (self.bidir):
+                if not self.bidir:
                     h_f = h[:, 0:int(x.shape[1] / 2)]
                     h_b = flip(h[:, int(x.shape[1] / 2):x.shape[1]].contiguous(), 0)
                     h = h_f
@@ -461,7 +461,7 @@ class GRU(nn.Module):
         if self.twin_reg:
             loss = loss + self.twin_w * reg
 
-        return [loss, err, pout]
+        return loss, err, pout
 
 
 class RNN(nn.Module):
@@ -673,7 +673,7 @@ class RNN(nn.Module):
         if self.twin_reg:
             loss = loss + self.twin_w * reg
 
-        return [loss, err, pout]
+        return loss, err, pout
 
 
 class LSTM(nn.Module):
@@ -924,4 +924,4 @@ class LSTM(nn.Module):
         if self.twin_reg:
             loss = loss + self.twin_w * reg
 
-        return [loss, err, pout]
+        return loss, err, pout
