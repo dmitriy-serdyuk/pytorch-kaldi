@@ -187,7 +187,7 @@ One can easily write its own customized DNN model and plugs it into neural_nets.
 from neural_nets import mydnn as ann
 ``` 
 
-It is also important to properly set the label *rnn=1* if the model is a RNN model and *rnn=0* if it is a feedforward DNNs. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
+It is also important to properly set the label *rnn=True* if the model is a RNN model and *rnn=False* if it is a feedforward DNNs. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
 
 
 ## References

@@ -60,16 +60,16 @@ opt = options.optimizer
 
 if NN_type == 'RNN':
     from neural_nets import RNN as ann
-    rnn = 1
+    rnn = True
 elif NN_type == 'LSTM':
     from neural_nets import LSTM as ann
-    rnn = 1
+    rnn = True
 elif NN_type == 'GRU':
     from neural_nets import GRU as ann
-    rnn = 1
+    rnn = True
 elif NN_type == 'MLP':
     from neural_nets import MLP as ann
-    rnn = 0
+    rnn = False
 else:
     raise ValueError
 
@@ -123,7 +123,7 @@ if do_training:
     net.train()
     test_flag = 0
     N_batches = int(N_snt / batch_size)
-    if rnn == 0:
+    if not rnn:
         N_ex_tr = data_set.shape[0]
         N_batches = int(N_ex_tr / batch_size)
 
@@ -151,7 +151,7 @@ for i in range(N_batches):
 
     if do_training:
 
-        if rnn == 1:
+        if rnn:
             max_len = data_end_index[snt_index + batch_size - 1] - data_end_index[snt_index + batch_size - 2]
 
             inp = Variable(torch.zeros(max_len, batch_size, N_fea)).contiguous()
@@ -178,7 +178,7 @@ for i in range(N_batches):
         end_snt = data_end_index[i]
         inp = Variable(data_set[beg_snt:end_snt, 0:N_fea], volatile=True).contiguous()
         lab = Variable(data_set[beg_snt:end_snt, N_fea], volatile=True).contiguous().long()
-        if rnn == 1:
+        if rnn:
             inp = inp.view(inp.shape[0], 1, inp.shape[1])
             lab = lab.view(lab.shape[0], 1)
         beg_snt = data_end_index[i]
@@ -190,7 +190,7 @@ for i in range(N_batches):
         err = err.mean()
 
     if do_forward:
-        if rnn == 1:
+        if rnn:
             pout = pout.view(pout.shape[0] * pout.shape[1], pout.shape[2])
         kaldi_io.write_mat(post_file, pout.data.cpu().numpy() - np.log(counts / np.sum(counts)), data_name[i])
 
