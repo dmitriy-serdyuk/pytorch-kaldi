@@ -187,7 +187,7 @@ One can easily write its own customized DNN model and plugs it into neural_nets.
 from neural_nets import MyDNN as ANN
 ``` 
 
-It is also important to properly set the label *recurrent=True* if the model is a RNN model and *recurrent=False* if it is a feedforward DNNs. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
+It is also important that the class has an attribute *recurrent=True* if the model is recurrent and *recurrent=False* if it is feed-forward. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
 
 
 ## References

@@ -60,8 +60,8 @@ lr = float(options.lr)
 save_gpumem = int(options.save_gpumem)
 opt = options.optimizer
 
-recurrent = {"RNN": True, "LSTM": True, "GRU": True, "MLP": False}[NN_type]
 ANN = getattr(neural_nets, NN_type)
+recurrent = ANN.recurrent
 
 start_time = timeit.default_timer()
 

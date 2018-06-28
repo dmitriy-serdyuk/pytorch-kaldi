@@ -85,6 +85,8 @@ activation_map = {"relu": nn.ReLU,
 
 
 class MLP(nn.Module):
+    recurrent = False
+
     def __init__(self, options):
         super(MLP, self).__init__()
 
@@ -206,6 +208,8 @@ class MLP(nn.Module):
 
 
 class GRU(nn.Module):
+    recurrent = True
+
     def __init__(self, options):
         super(GRU, self).__init__()
 
@@ -438,6 +442,8 @@ class GRU(nn.Module):
 
 
 class RNN(nn.Module):
+    recurrent = True
+
     def __init__(self, options):
         super(RNN, self).__init__()
 
@@ -628,6 +634,8 @@ class RNN(nn.Module):
 
 
 class LSTM(nn.Module):
+    recurrent = True
+
     def __init__(self, options):
         super(LSTM, self).__init__()
 
