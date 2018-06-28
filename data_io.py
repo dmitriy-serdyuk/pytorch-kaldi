@@ -179,124 +179,124 @@ def read_conf():
     options, args = parser.parse_args()
 
     cfg_file = options.cfg
-    Config = ConfigParser()
-    Config.read(cfg_file)
+    config = ConfigParser()
+    config.read(cfg_file)
 
     # DATA
-    if Config.has_option('data', 'out_file'):
-        options.out_file = Config.get('data', 'out_file')
+    if config.has_option('data', 'out_file'):
+        options.out_file = config.get('data', 'out_file')
 
-    if Config.has_option('data', 'fea_scp'):
-        options.fea_scp = Config.get('data', 'fea_scp')
+    if config.has_option('data', 'fea_scp'):
+        options.fea_scp = config.get('data', 'fea_scp')
 
-    if Config.has_option('data', 'fea_opts'):
-        options.fea_opts = Config.get('data', 'fea_opts')
+    if config.has_option('data', 'fea_opts'):
+        options.fea_opts = config.get('data', 'fea_opts')
 
-    if Config.has_option('data', 'lab_folder'):
-        options.lab_folder = Config.get('data', 'lab_folder')
+    if config.has_option('data', 'lab_folder'):
+        options.lab_folder = config.get('data', 'lab_folder')
 
-    if Config.has_option('data', 'lab_opts'):
-        options.lab_opts = Config.get('data', 'lab_opts')
+    if config.has_option('data', 'lab_opts'):
+        options.lab_opts = config.get('data', 'lab_opts')
 
-    if Config.has_option('data', 'pt_file'):
-        options.pt_file = Config.get('data', 'pt_file')
+    if config.has_option('data', 'pt_file'):
+        options.pt_file = config.get('data', 'pt_file')
 
-    if Config.has_option('data', 'count_file'):
-        options.count_file = Config.get('data', 'count_file')
+    if config.has_option('data', 'count_file'):
+        options.count_file = config.get('data', 'count_file')
 
     # TO DO
 
-    if Config.has_option('todo', 'do_training'):
-        options.do_training = Config.get('todo', 'do_training')
+    if config.has_option('todo', 'do_training'):
+        options.do_training = config.get('todo', 'do_training')
 
-    if Config.has_option('todo', 'do_eval'):
-        options.do_eval = Config.get('todo', 'do_eval')
+    if config.has_option('todo', 'do_eval'):
+        options.do_eval = config.get('todo', 'do_eval')
 
-    if Config.has_option('todo', 'do_forward'):
-        options.do_forward = Config.get('todo', 'do_forward')
+    if config.has_option('todo', 'do_forward'):
+        options.do_forward = config.get('todo', 'do_forward')
 
     # ARCHITECTURE
 
-    if Config.has_option('architecture', 'hidden_dim'):
-        options.hidden_dim = Config.get('architecture', 'hidden_dim')
+    if config.has_option('architecture', 'hidden_dim'):
+        options.hidden_dim = config.get('architecture', 'hidden_dim')
 
-    if Config.has_option('architecture', 'N_hid'):
-        options.N_hid = Config.get('architecture', 'N_hid')
+    if config.has_option('architecture', 'N_hid'):
+        options.N_hid = config.get('architecture', 'N_hid')
 
-    if Config.has_option('architecture', 'drop_rate'):
-        options.drop_rate = Config.get('architecture', 'drop_rate')
+    if config.has_option('architecture', 'drop_rate'):
+        options.drop_rate = config.get('architecture', 'drop_rate')
 
-    if Config.has_option('architecture', 'use_batchnorm'):
-        options.use_batchnorm = Config.get('architecture', 'use_batchnorm')
+    if config.has_option('architecture', 'use_batchnorm'):
+        options.use_batchnorm = config.get('architecture', 'use_batchnorm')
 
-    if Config.has_option('architecture', 'cw_left'):
-        options.cw_left = Config.get('architecture', 'cw_left')
+    if config.has_option('architecture', 'cw_left'):
+        options.cw_left = config.get('architecture', 'cw_left')
 
-    if Config.has_option('architecture', 'cw_right'):
-        options.cw_right = Config.get('architecture', 'cw_right')
+    if config.has_option('architecture', 'cw_right'):
+        options.cw_right = config.get('architecture', 'cw_right')
 
-    if Config.has_option('architecture', 'use_seed'):
-        options.seed = Config.get('architecture', 'seed')
+    if config.has_option('architecture', 'use_seed'):
+        options.seed = config.get('architecture', 'seed')
 
-    if Config.has_option('architecture', 'use_cuda'):
-        options.use_cuda = Config.get('architecture', 'use_cuda')
+    if config.has_option('architecture', 'use_cuda'):
+        options.use_cuda = config.get('architecture', 'use_cuda')
 
-    if Config.has_option('architecture', 'multi_gpu'):
-        options.multi_gpu = Config.get('architecture', 'multi_gpu')
+    if config.has_option('architecture', 'multi_gpu'):
+        options.multi_gpu = config.get('architecture', 'multi_gpu')
 
-    if Config.has_option('architecture', 'bidir'):
-        options.bidir = Config.get('architecture', 'bidir')
+    if config.has_option('architecture', 'bidir'):
+        options.bidir = config.get('architecture', 'bidir')
 
-    if Config.has_option('architecture', 'resnet'):
-        options.resnet = Config.get('architecture', 'resnet')
+    if config.has_option('architecture', 'resnet'):
+        options.resnet = config.get('architecture', 'resnet')
 
-    if Config.has_option('architecture', 'act'):
-        options.act = Config.get('architecture', 'act')
+    if config.has_option('architecture', 'act'):
+        options.act = config.get('architecture', 'act')
 
-    if Config.has_option('architecture', 'resgate'):
-        options.resgate = Config.get('architecture', 'resgate')
+    if config.has_option('architecture', 'resgate'):
+        options.resgate = config.get('architecture', 'resgate')
 
-    if Config.has_option('architecture', 'minimal_gru'):
-        options.minimal_gru = Config.get('architecture', 'minimal_gru')
+    if config.has_option('architecture', 'minimal_gru'):
+        options.minimal_gru = config.get('architecture', 'minimal_gru')
 
-    if Config.has_option('architecture', 'skip_conn'):
-        options.skip_conn = Config.get('architecture', 'skip_conn')
+    if config.has_option('architecture', 'skip_conn'):
+        options.skip_conn = config.get('architecture', 'skip_conn')
 
-    if Config.has_option('architecture', 'act_gate'):
-        options.act_gate = Config.get('architecture', 'act_gate')
+    if config.has_option('architecture', 'act_gate'):
+        options.act_gate = config.get('architecture', 'act_gate')
 
-    if Config.has_option('architecture', 'use_laynorm'):
-        options.use_laynorm = Config.get('architecture', 'use_laynorm')
+    if config.has_option('architecture', 'use_laynorm'):
+        options.use_laynorm = config.get('architecture', 'use_laynorm')
 
-    if Config.has_option('architecture', 'cost'):
-        options.cost = Config.get('architecture', 'cost')
+    if config.has_option('architecture', 'cost'):
+        options.cost = config.get('architecture', 'cost')
 
-    if Config.has_option('architecture', 'NN_type'):
-        options.NN_type = Config.get('architecture', 'NN_type')
+    if config.has_option('architecture', 'NN_type'):
+        options.NN_type = config.get('architecture', 'NN_type')
 
-    if Config.has_option('architecture', 'twin_reg'):
-        options.twin_reg = Config.get('architecture', 'twin_reg')
+    if config.has_option('architecture', 'twin_reg'):
+        options.twin_reg = config.get('architecture', 'twin_reg')
 
-    if Config.has_option('architecture', 'twin_w'):
-        options.twin_w = Config.get('architecture', 'twin_w')
+    if config.has_option('architecture', 'twin_w'):
+        options.twin_w = config.get('architecture', 'twin_w')
 
-    if Config.has_option('architecture', 'cnn_pre'):
-        options.cnn_pre = Config.get('architecture', 'cnn_pre')
+    if config.has_option('architecture', 'cnn_pre'):
+        options.cnn_pre = config.get('architecture', 'cnn_pre')
 
-    if Config.has_option('architecture', 'seed'):
-        options.seed = Config.get('architecture', 'seed')
+    if config.has_option('architecture', 'seed'):
+        options.seed = config.get('architecture', 'seed')
 
     # Optimization
-    if Config.has_option('optimization', 'lr'):
-        options.lr = Config.get('optimization', 'lr')
+    if config.has_option('optimization', 'lr'):
+        options.lr = config.get('optimization', 'lr')
 
-    if Config.has_option('optimization', 'batch_size'):
-        options.batch_size = Config.get('optimization', 'batch_size')
+    if config.has_option('optimization', 'batch_size'):
+        options.batch_size = config.get('optimization', 'batch_size')
 
-    if Config.has_option('optimization', 'save_gpumem'):
-        options.save_gpumem = Config.get('optimization', 'save_gpumem')
+    if config.has_option('optimization', 'save_gpumem'):
+        options.save_gpumem = config.get('optimization', 'save_gpumem')
 
-    if Config.has_option('optimization', 'optimizer'):
-        options.optimizer = Config.get('optimization', 'optimizer')
+    if config.has_option('optimization', 'optimizer'):
+        options.optimizer = config.get('optimization', 'optimizer')
 
     return options

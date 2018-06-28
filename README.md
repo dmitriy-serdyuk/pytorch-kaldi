@@ -184,10 +184,10 @@ After decoding, the final transcriptions and scores are available in the output 
 One can easily write its own customized DNN model and plugs it into neural_nets.py. Similarly to the models already implemented, the user has to write a *init* method for initializing the DNN parameters and a forward method. The forward method should take in input the current features *x* and the corresponding labels *lab*. It has to provide at the output the loss, the error and the posterior probabilities of the processed minibatch.  Once the customized DNN has been created, the new model should be imported into the *run_nn_single_ep.py* file in this way:
 
 ``` 
-from neural_nets import mydnn as ann
+from neural_nets import MyDNN as ANN
 ``` 
 
-It is also important to properly set the label *rnn=True* if the model is a RNN model and *rnn=False* if it is a feedforward DNNs. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
+It is also important to properly set the label *recurrent=True* if the model is a RNN model and *recurrent=False* if it is a feedforward DNNs. Note that RNN and feed-forward models are based on different feature processing (for RNN models  the features are ordered according to their length, for feed-forward DNNs the features are shuffled.)
 
 
 ## References

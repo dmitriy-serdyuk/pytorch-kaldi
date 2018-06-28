@@ -48,10 +48,10 @@ class LayerNorm(nn.Module):
         return self.gamma * (x - mean) / (std + self.eps) + self.beta
 
 
-class normrelu(nn.Module):
+class NormReLU(nn.Module):
 
     def __init__(self):
-        super(normrelu, self).__init__()
+        super(NormReLU, self).__init__()
 
     def forward(self, x):
         dim = 1
@@ -114,7 +114,7 @@ class MLP(nn.Module):
         elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
         elif self.act == "normrelu":
-            self.act = normrelu()
+            self.act = NormReLU()
         else:
             raise ValueError
 
@@ -263,7 +263,7 @@ class GRU(nn.Module):
         elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
         elif self.act == "normrelu":
-            self.act = normrelu()
+            self.act = NormReLU()
         else:
             raise ValueError
 
@@ -274,7 +274,7 @@ class GRU(nn.Module):
         elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
         elif self.act_gate == "normrelu":
-            self.act_gate = normrelu()
+            self.act_gate = NormReLU()
         else:
             raise ValueError
 
@@ -509,7 +509,7 @@ class RNN(nn.Module):
         elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
         elif self.act == "normrelu":
-            self.act = normrelu()
+            self.act = NormReLU()
         else:
             raise ValueError
 
@@ -520,7 +520,7 @@ class RNN(nn.Module):
         elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
         elif self.act_gate == "normrelu":
-            self.act_gate = normrelu()
+            self.act_gate = NormReLU()
         else:
             raise ValueError
 
@@ -729,7 +729,7 @@ class LSTM(nn.Module):
         elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
         elif self.act == "normrelu":
-            self.act = normrelu()
+            self.act = NormReLU()
         else:
             raise ValueError
 
@@ -740,7 +740,7 @@ class LSTM(nn.Module):
         elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
         elif self.act_gate == "normrelu":
-            self.act_gate = normrelu()
+            self.act_gate = NormReLU()
         else:
             raise ValueError
 
