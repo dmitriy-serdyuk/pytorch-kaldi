@@ -1,8 +1,8 @@
 import numpy as np
 import torch
-from torch.autograd import Variable
-import torch.nn.functional as F
 import torch.nn as nn
+import torch.nn.functional as F
+from torch.autograd import Variable
 
 
 def flip(x, dim):
