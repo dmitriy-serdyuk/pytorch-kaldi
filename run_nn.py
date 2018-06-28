@@ -60,22 +60,18 @@ opt = options.optimizer
 
 if NN_type == 'RNN':
     from neural_nets import RNN as ann
-
     rnn = 1
-
-if NN_type == 'LSTM':
+elif NN_type == 'LSTM':
     from neural_nets import LSTM as ann
-
     rnn = 1
-
-if NN_type == 'GRU':
+elif NN_type == 'GRU':
     from neural_nets import GRU as ann
-
     rnn = 1
-if NN_type == 'MLP':
+elif NN_type == 'MLP':
     from neural_nets import MLP as ann
-
     rnn = 0
+else:
+    raise ValueError
 
 start_time = timeit.default_timer()
 

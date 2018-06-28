@@ -109,15 +109,14 @@ class MLP(nn.Module):
 
         if self.act == "relu":
             self.act = nn.ReLU()
-
-        if self.act == "tanh":
+        elif self.act == "tanh":
             self.act = nn.Tanh()
-
-        if self.act == "sigmoid":
+        elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
-
-        if self.act == "normrelu":
+        elif self.act == "normrelu":
             self.act = normrelu()
+        else:
+            raise ValueError
 
         #
         curr_dim = self.input_dim
@@ -153,9 +152,10 @@ class MLP(nn.Module):
         # loss definition
         if self.cost == "nll":
             self.criterion = nn.NLLLoss()
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             self.criterion = torch.nn.MSELoss()
+        else:
+            raise ValueError
 
     def forward(self, x, lab, test_flag):
 
@@ -201,11 +201,12 @@ class MLP(nn.Module):
             pred = torch.max(pout, dim=1)[1]
             loss = self.criterion(pout, lab.long())
             err = torch.mean((pred != lab.long()).float())
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             loss = self.criterion(out, lab)
             pout = out
             err = Variable(torch.FloatTensor([0]))
+        else:
+            raise ValueError
 
         return loss, err, pout
 
@@ -257,27 +258,25 @@ class GRU(nn.Module):
 
         if self.act == "relu":
             self.act = nn.ReLU()
-
-        if self.act == "tanh":
+        elif self.act == "tanh":
             self.act = nn.Tanh()
-
-        if self.act == "sigmoid":
+        elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
-
-        if self.act == "normrelu":
+        elif self.act == "normrelu":
             self.act = normrelu()
+        else:
+            raise ValueError
 
         if self.act_gate == "relu":
             self.act_gate = nn.ReLU()
-
-        if self.act_gate == "tanh":
+        elif self.act_gate == "tanh":
             self.act_gate = nn.Tanh()
-
-        if self.act_gate == "sigmoid":
+        elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
-
-        if self.act_gate == "normrelu":
+        elif self.act_gate == "normrelu":
             self.act_gate = normrelu()
+        else:
+            raise ValueError
 
         curr_dim = self.input_dim
 
@@ -328,9 +327,10 @@ class GRU(nn.Module):
         # loss definition
         if self.cost == "nll":
             self.criterion = nn.NLLLoss()
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             self.criterion = torch.nn.MSELoss()
+        else:
+            raise ValueError
 
     def forward(self, x, lab, test_flag):
 
@@ -452,11 +452,12 @@ class GRU(nn.Module):
             pred = torch.max(pout, dim=2)[1]
             loss = self.criterion(pout.view(h.shape[0] * h.shape[1], -1), lab.view(-1))  # +1.0*reg
             err = torch.sum((pred != lab).float()) / (h.shape[0] * h.shape[1])
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             loss = self.criterion(out, lab)
             pout = out
             err = Variable(torch.FloatTensor([0]))
+        else:
+            raise ValueError
 
         if self.twin_reg:
             loss = loss + self.twin_w * reg
@@ -503,27 +504,25 @@ class RNN(nn.Module):
 
         if self.act == "relu":
             self.act = nn.ReLU()
-
-        if self.act == "tanh":
+        elif self.act == "tanh":
             self.act = nn.Tanh()
-
-        if self.act == "sigmoid":
+        elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
-
-        if self.act == "normrelu":
+        elif self.act == "normrelu":
             self.act = normrelu()
+        else:
+            raise ValueError
 
         if self.act_gate == "relu":
             self.act_gate = nn.ReLU()
-
-        if self.act_gate == "tanh":
+        elif self.act_gate == "tanh":
             self.act_gate = nn.Tanh()
-
-        if self.act_gate == "sigmoid":
+        elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
-
-        if self.act_gate == "normrelu":
+        elif self.act_gate == "normrelu":
             self.act_gate = normrelu()
+        else:
+            raise ValueError
 
         curr_dim = self.input_dim
 
@@ -560,9 +559,10 @@ class RNN(nn.Module):
         # loss definition
         if self.cost == "nll":
             self.criterion = nn.NLLLoss()
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             self.criterion = torch.nn.MSELoss()
+        else:
+            raise ValueError
 
     def forward(self, x, lab, test_flag):
 
@@ -664,11 +664,12 @@ class RNN(nn.Module):
             pred = torch.max(pout, dim=2)[1]
             loss = self.criterion(pout.view(h.shape[0] * h.shape[1], -1), lab.view(-1))
             err = torch.sum((pred != lab).float()) / (h.shape[0] * h.shape[1])
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             loss = self.criterion(out, lab)
             pout = out
             err = Variable(torch.FloatTensor([0]))
+        else:
+            raise ValueError
 
         if self.twin_reg:
             loss = loss + self.twin_w * reg
@@ -723,27 +724,25 @@ class LSTM(nn.Module):
 
         if self.act == "relu":
             self.act = nn.ReLU()
-
-        if self.act == "tanh":
+        elif self.act == "tanh":
             self.act = nn.Tanh()
-
-        if self.act == "sigmoid":
+        elif self.act == "sigmoid":
             self.act = nn.Sigmoid()
-
-        if self.act == "normrelu":
+        elif self.act == "normrelu":
             self.act = normrelu()
+        else:
+            raise ValueError
 
         if self.act_gate == "relu":
             self.act_gate = nn.ReLU()
-
-        if self.act_gate == "tanh":
+        elif self.act_gate == "tanh":
             self.act_gate = nn.Tanh()
-
-        if self.act_gate == "sigmoid":
+        elif self.act_gate == "sigmoid":
             self.act_gate = nn.Sigmoid()
-
-        if self.act_gate == "normrelu":
+        elif self.act_gate == "normrelu":
             self.act_gate = normrelu()
+        else:
+            raise ValueError
 
         curr_dim = self.input_dim
 
@@ -915,11 +914,12 @@ class LSTM(nn.Module):
             pred = torch.max(pout, dim=2)[1]
             loss = self.criterion(pout.view(h.shape[0] * h.shape[1], -1), lab.view(-1))
             err = torch.sum((pred != lab).float()) / (h.shape[0] * h.shape[1])
-
-        if self.cost == "mse":
+        elif self.cost == "mse":
             loss = self.criterion(out, lab)
             pout = out
             err = Variable(torch.FloatTensor([0]))
+        else:
+            raise ValueError
 
         if self.twin_reg:
             loss = loss + self.twin_w * reg
